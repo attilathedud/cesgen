@@ -42,15 +42,25 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                     shutil.copy( full_temp_file_path, dir_path )
 
 
-    def generate_manifest_boiler( self, project_name ):
+    def generate_manifest_boiler( self, project_name, new_tab ):
         manifest_boiler = \
 '{\n\
     "manifest_version"  :     2,\n\
     "name"              :     "' + project_name + '",\n\
     "short_name"        :     "' + project_name.replace(" ", "") + '",\n\
     "version"           :     "1.0.0",\n\
-    "description"       :     "' + project_name + '."\n\
-}\n' 
+    "description"       :     "' + project_name + '."' 
+
+        if new_tab == True:
+            manifest_boiler = manifest_boiler + \
+',\n\
+    "chrome_url_overrides" : {\n\
+        "newtab" : "main.html"\n\
+    }'
+    
+        manifest_boiler = manifest_boiler + \
+'\n\
+}\n'
 
         return manifest_boiler
 
@@ -106,7 +116,7 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                 self.create_file( popup_options_script_path, '' )
 
         # Create the layout section
-        if self.chkIncludeLayouts.isChecked( ) or self.chkIncludeOptions( ).isChecked( ) or \
+        if self.chkIncludeLayouts.isChecked( ) or self.chkIncludeOptions.isChecked( ) or \
             self.chkPermNewTab.isChecked( ):
             layouts_path = os.path.join( project_path, "pages" )
             if not os.path.exists( layouts_path ):
@@ -133,7 +143,12 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         
         # Create the manifest file
         manifest_path = os.path.join( project_path, "manifest.json" )
-        self.create_file( manifest_path, self.generate_manifest_boiler( str( self.leProjectName.text() ) ) )
+        self.create_file( manifest_path, 
+            self.generate_manifest_boiler( 
+                str( self.leProjectName.text( ) ),
+                self.chkPermNewTab.isChecked( )
+                ) 
+        )
 
 if __name__ == '__main__':
     app = QtGui.QApplication( sys.argv )
