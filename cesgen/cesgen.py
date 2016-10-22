@@ -20,11 +20,12 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
     # Skeleton generation functions
 
-    def create_file( self, file_path ):
+    def create_file( self, file_path, str_to_write ):
         if not os.path.exists( file_path ):
             new_file = open( file_path, 'w' )
 
-            #TODO: fill in with code
+            new_file.write( str_to_write )
+
             new_file.flush( )
             new_file.close( )
 
@@ -53,6 +54,26 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
         return manifest_boiler
 
+    def generate_layout_boiler( self ):
+        html_boiler = \
+'<!DOCTYPE html>\n\
+<html lang="en">\n\
+<head>\n\
+	<title></title>\n\
+\n\
+    <!-- css -->\n\
+	<link rel="stylesheet" href="" type="text/css">\n\
+</head>\n\
+\n\
+<body>\n\
+\n\
+    <!-- scripts -->\n\
+	<script src=""></script>\n\
+</body>\n\
+</html>'
+
+        return html_boiler
+
     # TODO: Move this to a thread & show progress
     def generate_skeleton( self ):
         # Create the overall directory
@@ -71,18 +92,18 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
             if self.chkIncludeBgScripts.isChecked( ):
                 bg_script_path = os.path.join( scripts_path, "background.js" )
-                self.create_file( bg_script_path )
+                self.create_file( bg_script_path, '' )
                 
             if self.chkIncludeContentScripts.isChecked( ):
                 content_script_path = os.path.join( scripts_path, "injected.js" )
-                self.create_file( content_script_path )
+                self.create_file( content_script_path, '' )
 
             if self.chkIncludeOptions.isChecked( ):
                 options_script_path = os.path.join( scripts_path, "settings.js" )
                 popup_options_script_path = os.path.join( scripts_path, "popup_settings.js" )
 
-                self.create_file( options_script_path )
-                self.create_file( popup_options_script_path )
+                self.create_file( options_script_path, '' )
+                self.create_file( popup_options_script_path, '' )
 
         # Create the layout section
         if self.chkIncludeLayouts.isChecked( ) or self.chkIncludeOptions( ).isChecked( ) or \
@@ -93,14 +114,14 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
             if self.chkPermNewTab.isChecked( ):
                 new_tab_layout_path = os.path.join( layouts_path, "newtab.html" )
-                self.create_file( new_tab_layout_path )
+                self.create_file( new_tab_layout_path, self.generate_layout_boiler( ) )
 
             if self.chkIncludeOptions.isChecked( ):
                 options_layout_path = os.path.join( layouts_path, "settings.html" )
                 popup_options_layout_path = os.path.join( layouts_path, "popup_settings.html" )
 
-                self.create_file( options_layout_path )
-                self.create_file( popup_options_layout_path )
+                self.create_file( options_layout_path, self.generate_layout_boiler( ) )
+                self.create_file( popup_options_layout_path, self.generate_layout_boiler( ) )
 
         # Create the css section
         if self.chkIncludeCss.isChecked():
@@ -112,14 +133,7 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         
         # Create the manifest file
         manifest_path = os.path.join( project_path, "manifest.json" )
-        if not os.path.exists( manifest_path ):
-            manifest_file = open( manifest_path, 'w' )
-            manifest_file.write( self.generate_manifest_boiler( str( self.leProjectName.text() ) ) )
-
-            #TODO: fill in with bg/content scripts, permissions, etc.
-
-            manifest_file.flush( )
-            manifest_file.close( )
+        self.create_file( manifest_path, self.generate_manifest_boiler( str( self.leProjectName.text() ) ) )
 
 if __name__ == '__main__':
     app = QtGui.QApplication( sys.argv )
