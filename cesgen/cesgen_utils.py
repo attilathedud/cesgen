@@ -27,7 +27,7 @@ class Cesgen_Utils:
 
     @staticmethod
     def generate_manifest_boiler( project_name, perm_new_tab, perm_storage, 
-                                    perm_context_menus, perm_notifications ):
+                                    perm_context_menus, perm_notifications, background_scripts ):
         manifest_boiler = \
 '{\n\
     "manifest_version"  :     2,\n\
@@ -61,6 +61,13 @@ class Cesgen_Utils:
 ',\n\
     "chrome_url_overrides" : {\n\
         "newtab" : "main.html"\n\
+    }'
+
+        if background_scripts == True:
+            manifest_boiler = manifest_boiler + \
+',\n\
+    "background" : {\n\
+        "scripts" : [ "scripts/background.js" ]\n\
     }'
     
         manifest_boiler = manifest_boiler + \

@@ -86,7 +86,8 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                 self.chkPermNewTab.isChecked( ),
                 self.chkPermStorage.isChecked( ),
                 self.chkPermContentMenus.isChecked( ),
-                self.chkPermNotifications.isChecked( )
+                self.chkPermNotifications.isChecked( ),
+                self.chkIncludeBgScripts.isChecked( )
                 ) 
         )
 
