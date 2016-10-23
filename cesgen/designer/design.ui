@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>406</width>
-    <height>398</height>
+    <width>413</width>
+    <height>403</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -73,12 +73,28 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
         <property name="sizeConstraint">
-         <enum>QLayout::SetFixedSize</enum>
+         <enum>QLayout::SetDefaultConstraint</enum>
         </property>
         <item>
          <widget class="QLineEdit" name="leDirectory"/>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <widget class="QPushButton" name="btnDirectoryChoose">
@@ -101,46 +117,19 @@
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="chkIncludeCss">
-        <property name="text">
-         <string>Include css</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QCheckBox" name="chkIncludeImgs">
-        <property name="text">
-         <string>Include imgs</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QCheckBox" name="chkIncludeBgScripts">
-        <property name="text">
-         <string>Include background scripts</string>
-        </property>
-       </widget>
-      </item>
+     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinAndMaxSize</enum>
+      </property>
       <item row="1" column="1">
        <widget class="QLineEdit" name="leIncludeCssDirectory"/>
       </item>
-      <item row="4" column="0">
-       <widget class="QCheckBox" name="chkIncludeLayouts">
+      <item row="4" column="1">
+       <widget class="QCheckBox" name="chkIncludeOptions">
         <property name="text">
-         <string>Include layouts</string>
+         <string>Include options pages</string>
         </property>
        </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="leIncludeImgsDirectory"/>
       </item>
       <item row="0" column="1">
        <widget class="QLabel" name="label_3">
@@ -157,17 +146,47 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QCheckBox" name="chkIncludeOptions">
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="chkIncludeBgScripts">
         <property name="text">
-         <string>Include options pages</string>
+         <string>Include background scripts</string>
         </property>
        </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="chkIncludeImgs">
+        <property name="text">
+         <string>Include imgs</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="chkIncludeCss">
+        <property name="text">
+         <string>Include css</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="leIncludeImgsDirectory"/>
       </item>
       <item row="3" column="1">
        <widget class="QCheckBox" name="chkIncludeContentScripts">
         <property name="text">
          <string>Include content-scripts</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QCheckBox" name="chkIncludeLayouts">
+        <property name="text">
+         <string>Include layouts</string>
         </property>
        </widget>
       </item>
