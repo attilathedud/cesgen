@@ -61,14 +61,14 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
             if self.chkPermNewTab.isChecked( ):
                 new_tab_layout_path = os.path.join( layouts_path, "newtab.html" )
-                Cesgen_Utils.create_file( new_tab_layout_path, Cesgen_Utils.generate_layout_boiler( ) )
+                Cesgen_Utils.create_file( new_tab_layout_path, Cesgen_Utils.generate_layout_boiler( False, '' ) )
 
             if self.chkIncludeOptions.isChecked( ):
                 options_layout_path = os.path.join( layouts_path, "settings.html" )
                 popup_options_layout_path = os.path.join( layouts_path, "popup_settings.html" )
 
-                Cesgen_Utils.create_file( options_layout_path, Cesgen_Utils.generate_layout_boiler( ) )
-                Cesgen_Utils.create_file( popup_options_layout_path, Cesgen_Utils.generate_layout_boiler( ) )
+                Cesgen_Utils.create_file( options_layout_path, Cesgen_Utils.generate_layout_boiler( True, 'settings' ) )
+                Cesgen_Utils.create_file( popup_options_layout_path, Cesgen_Utils.generate_layout_boiler( True, 'popup_settings' ) )
 
         # Create the css section
         if self.chkIncludeCss.isChecked():

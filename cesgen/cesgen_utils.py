@@ -98,7 +98,7 @@ class Cesgen_Utils:
         return manifest_boiler
 
     @staticmethod
-    def generate_layout_boiler( ):
+    def generate_layout_boiler( is_option_page, option_page_name ):
         html_boiler = \
 '<!DOCTYPE html>\n\
 <html lang="en">\n\
@@ -112,7 +112,13 @@ class Cesgen_Utils:
 <body>\n\
 \n\
     <!-- scripts -->\n\
-	<script src=""></script>\n\
+	<script src="'
+    
+        if is_option_page == True:
+            html_boiler = html_boiler + option_page_name + '.js'
+
+        html_boiler = html_boiler + \
+'"></script>\n\
 </body>\n\
 </html>'
 
