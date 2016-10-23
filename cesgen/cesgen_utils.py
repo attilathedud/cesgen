@@ -27,7 +27,8 @@ class Cesgen_Utils:
 
     @staticmethod
     def generate_manifest_boiler( project_name, perm_new_tab, perm_storage, 
-                                    perm_context_menus, perm_notifications, background_scripts ):
+                                    perm_context_menus, perm_notifications, 
+                                    background_scripts, content_scripts):
         manifest_boiler = \
 '{\n\
     "manifest_version"  :     2,\n\
@@ -69,6 +70,16 @@ class Cesgen_Utils:
     "background" : {\n\
         "scripts" : [ "scripts/background.js" ]\n\
     }'
+
+        if content_scripts == True:
+            manifest_boiler = manifest_boiler + \
+',\n\
+    "content_scripts" : [ {\n\
+        "matches" : [ "<all_urls" ],\n\
+        "js" : [\n\
+            "scripts/injected.js"\n\
+        ]\n\
+    } ]'
     
         manifest_boiler = manifest_boiler + \
 '\n\
