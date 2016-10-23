@@ -39,18 +39,26 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
             if self.chkIncludeBgScripts.isChecked( ):
                 bg_script_path = os.path.join( scripts_path, "background.js" )
-                Cesgen_Utils.create_file( bg_script_path, '' )
+                Cesgen_Utils.create_file( bg_script_path, Cesgen_Utils.generate_script_boiler( 
+                    "background.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
+                )
                 
             if self.chkIncludeContentScripts.isChecked( ):
                 content_script_path = os.path.join( scripts_path, "injected.js" )
-                Cesgen_Utils.create_file( content_script_path, '' )
+                Cesgen_Utils.create_file( content_script_path, Cesgen_Utils.generate_script_boiler( 
+                    "injected.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
+                )
 
             if self.chkIncludeOptions.isChecked( ):
                 options_script_path = os.path.join( scripts_path, "settings.js" )
                 popup_options_script_path = os.path.join( scripts_path, "popup_settings.js" )
 
-                Cesgen_Utils.create_file( options_script_path, '' )
-                Cesgen_Utils.create_file( popup_options_script_path, '' )
+                Cesgen_Utils.create_file( options_script_path, Cesgen_Utils.generate_script_boiler( 
+                    "settings.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
+                    )
+                Cesgen_Utils.create_file( popup_options_script_path, Cesgen_Utils.generate_script_boiler( 
+                    "popup_settings.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
+                )
 
         # Create the layout section
         if self.chkIncludeLayouts.isChecked( ) or self.chkIncludeOptions.isChecked( ) or \

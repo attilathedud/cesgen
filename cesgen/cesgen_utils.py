@@ -123,3 +123,60 @@ class Cesgen_Utils:
 </html>'
 
         return html_boiler
+
+    @staticmethod
+    def generate_script_boiler( file_name, perm_storage, perm_context_menus ):
+        script_boiler = ''
+
+        if perm_storage == True:
+            script_boiler = script_boiler + \
+'//Option related settings\n\
+var options = {\n\
+    //"Option_1" : "Value_1",\n\
+    //"Option 2" : "Value 2"\n\
+};\n\
+\n\
+chrome.storage.onChanged.addListener( function( changes, namespace ) {\n\
+    for ( key in changes ) {\n\
+        var storageChange = changes[ key ];\n\
+\n\
+        options[ key ] = storageChange.newValue;\n\
+    }\n\
+});\n\
+\n\
+chrome.storage.local.get({\n\
+    Option_1 : "Value_1",\n\
+    Option_2 : "Value_2"\n\
+}, function( items ) {\n\
+    for( key in items ) {\n\
+        options[ key ] = items[ key ];\n\
+    }\n\
+});\n\n'
+
+        if perm_context_menus == True and file_name == "background.js":
+            script_boiler = script_boiler + \
+'function contextMenu_onclick( info, tab ) {\n\
+    var text_selected = info.selectionText;\n\
+    var tab_id = 0;\n\
+\n\
+    chrome.tabs.query({\n\
+        "active"        : true,\n\
+        "currentWindow" : true\n\
+    }, function (tabs) {\n\
+        tab_id = tabs[ 0 ].id;\n\
+\n\
+        chrome.tabs.sendMessage( tab_id, {\n\
+            "function" : "context_menu_clicked",\n\
+            "text_selected" : text_selected\n\
+        });\n\
+    });\n\
+};\n'
+        if perm_context_menus == True and file_name == "injected.js":
+            script_boiler = script_boiler + \
+'chrome.extension.onMessage.addListener( function ( message, sender, callback ) {\n\
+    if ( message.function == "context_menu_clicked" ) {\n\
+        //execute context_menu function\n\
+    }\n\
+});\n'
+
+        return script_boiler
