@@ -20,6 +20,7 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
     # Skeleton generation functions
 
+    # TODO: Separate out utils into another class
     def create_file( self, file_path, str_to_write ):
         if not os.path.exists( file_path ):
             new_file = open( file_path, 'w' )
@@ -42,16 +43,37 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                     shutil.copy( full_temp_file_path, dir_path )
 
 
-    def generate_manifest_boiler( self, project_name, new_tab ):
+    def generate_manifest_boiler( self, project_name, perm_new_tab, perm_storage, 
+                                    perm_context_menus, perm_notifications ):
         manifest_boiler = \
 '{\n\
     "manifest_version"  :     2,\n\
     "name"              :     "' + project_name + '",\n\
-    "short_name"        :     "' + project_name.replace(" ", "") + '",\n\
+    "short_name"        :     "' + project_name.replace( " ", "" ) + '",\n\
     "version"           :     "1.0.0",\n\
     "description"       :     "' + project_name + '."' 
 
-        if new_tab == True:
+        if perm_storage == True or perm_context_menus == True or perm_notifications == True:
+            manifest_boiler = manifest_boiler + \
+',\n\
+    "permissions" : [\n'
+
+            if perm_storage == True:
+                manifest_boiler = manifest_boiler + \
+'       "storage"'
+
+            if perm_context_menus == True:
+                manifest_boiler = manifest_boiler + \
+',\n        "contextMenus"'
+
+            if perm_notifications == True:
+                manifest_boiler = manifest_boiler + \
+',\n        "notifications"'
+
+            manifest_boiler = manifest_boiler + \
+'\n    ]'
+
+        if perm_new_tab == True:
             manifest_boiler = manifest_boiler + \
 ',\n\
     "chrome_url_overrides" : {\n\
@@ -146,7 +168,10 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         self.create_file( manifest_path, 
             self.generate_manifest_boiler( 
                 str( self.leProjectName.text( ) ),
-                self.chkPermNewTab.isChecked( )
+                self.chkPermNewTab.isChecked( ),
+                self.chkPermStorage.isChecked( ),
+                self.chkPermContentMenus.isChecked( ),
+                self.chkPermNotifications.isChecked( )
                 ) 
         )
 
