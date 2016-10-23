@@ -28,7 +28,8 @@ class Cesgen_Utils:
     @staticmethod
     def generate_manifest_boiler( project_name, perm_new_tab, perm_storage, 
                                     perm_context_menus, perm_notifications, 
-                                    background_scripts, content_scripts):
+                                    background_scripts, content_scripts, 
+                                    option_pages ):
         manifest_boiler = \
 '{\n\
     "manifest_version"  :     2,\n\
@@ -80,6 +81,15 @@ class Cesgen_Utils:
             "scripts/injected.js"\n\
         ]\n\
     } ]'
+
+        if option_pages == True:
+            manifest_boiler = manifest_boiler + \
+',\n\
+    "options_page" : "pages/settings.html",\n\
+    "browser_action" : {\n\
+        "name"  : "' + project_name + '",\n\
+        "default_popup": "pages/popup_settings.html"\n\
+    }'
     
         manifest_boiler = manifest_boiler + \
 '\n\

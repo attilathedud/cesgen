@@ -4,7 +4,7 @@ import sys, os
 import design
 from cesgen_utils import Cesgen_Utils
 
-# TODO: remove all os calls to cesgen_utils
+# TODO: move all os calls to cesgen_utils
 
 class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
     def __init__( self ):
@@ -88,7 +88,8 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                 self.chkPermContentMenus.isChecked( ),
                 self.chkPermNotifications.isChecked( ),
                 self.chkIncludeBgScripts.isChecked( ),
-                self.chkIncludeContentScripts.isChecked( )
+                self.chkIncludeContentScripts.isChecked( ),
+                self.chkIncludeOptions.isChecked( )
             ) 
         )
 
