@@ -24,6 +24,13 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
     # TODO: Move this to a thread & show progress
     def generate_skeleton( self ):
+        if len( str( self.leProjectName.text( ) ) ) == 0 or len( str( self.leDirectory.text() ) ) == 0:
+            msgBox = QtGui.QMessageBox( )
+            msgBox.setText("Please provide the project name and the project directory.")
+            msgBox.exec_()
+            
+            return
+
         Cesgen_Utils.project_name = str( self.leProjectName.text( ) )
 
         # Create the overall directory
