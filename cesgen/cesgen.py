@@ -1,6 +1,6 @@
 from PyQt4 import QtGui
 from functools import partial
-import sys, os
+import sys, os, threading
 
 import design
 from cesgen_utils import Cesgen_Utils
@@ -14,7 +14,7 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         self.btnDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leDirectory ) )
         self.btnCssDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leIncludeCssDirectory ) )
         self.btnImgDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leIncludeImgsDirectory ) )
-        self.btnGenerate.clicked.connect( self.generate_skeleton )
+        self.btnGenerate.clicked.connect( self.ui_generate )
 
     def browse_directory( self, associatedLe ):
         directory = QtGui.QFileDialog.getExistingDirectory( self, "Pick a directory" )
@@ -22,15 +22,17 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         if directory:
             associatedLe.setText( directory )
 
-    # TODO: Move this to a thread & show progress
-    def generate_skeleton( self ):
+    def ui_generate( self ):
         if len( str( self.leProjectName.text( ) ) ) == 0 or len( str( self.leDirectory.text() ) ) == 0:
             msgBox = QtGui.QMessageBox( )
             msgBox.setText("Please provide the project name and the project directory.")
             msgBox.exec_()
-            
-            return
+        else:
+            t = threading.Thread( target = self.generate_skeleton )
+            t.setDaemon( True )
+            t.start( )
 
+    def generate_skeleton( self ):
         Cesgen_Utils.project_name = str( self.leProjectName.text( ) )
 
         # Create the overall directory
