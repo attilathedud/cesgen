@@ -1,7 +1,8 @@
 import sys, os, shutil
 
-# TODO: make insance class, store values so we don't have to pass everything around
 class Cesgen_Utils:
+
+    project_name = ''
 
     @staticmethod
     def create_file( file_path, str_to_write ):
@@ -27,17 +28,17 @@ class Cesgen_Utils:
                     shutil.copy( full_temp_file_path, dir_path )
 
     @staticmethod
-    def generate_manifest_boiler( project_name, perm_new_tab, perm_storage, 
+    def generate_manifest_boiler( perm_new_tab, perm_storage, 
                                     perm_context_menus, perm_notifications, 
                                     background_scripts, content_scripts, 
                                     option_pages ):
         manifest_boiler = \
 '{\n\
     "manifest_version"  :     2,\n\
-    "name"              :     "' + project_name + '",\n\
-    "short_name"        :     "' + project_name.replace( " ", "" ) + '",\n\
+    "name"              :     "' + Cesgen_Utils.project_name + '",\n\
+    "short_name"        :     "' + Cesgen_Utils.project_name.replace( " ", "" ) + '",\n\
     "version"           :     "1.0.0",\n\
-    "description"       :     "' + project_name + '."' 
+    "description"       :     "' + Cesgen_Utils.project_name + '."' 
 
         if perm_storage == True or perm_context_menus == True or perm_notifications == True:
             manifest_boiler = manifest_boiler + \
@@ -90,7 +91,7 @@ class Cesgen_Utils:
 ',\n\
     "options_page" : "pages/settings.html",\n\
     "browser_action" : {\n\
-        "name"  : "' + project_name + '",\n\
+        "name"  : "' + Cesgen_Utils.project_name + '",\n\
         "default_popup": "pages/popup_settings.html"\n\
     }'
     
@@ -128,7 +129,7 @@ class Cesgen_Utils:
         return html_boiler
 
     @staticmethod
-    def generate_script_boiler( project_name, file_name, perm_storage, perm_context_menus ):
+    def generate_script_boiler( file_name, perm_storage, perm_context_menus ):
         script_boiler = ''
 
         if perm_storage == True:
@@ -178,7 +179,7 @@ chrome.storage.local.get({\n\
 };\n\
 \n\
 chrome.contextMenus.create({\n\
-    "title"     : "' + project_name + '",\n\
+    "title"     : "' + Cesgen_Utils.project_name + '",\n\
     "contexts"  : [ "all" ],\n\
     "onclick"   : contextMenu_onclick\n\
 });\n'

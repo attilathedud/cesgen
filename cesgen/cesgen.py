@@ -23,6 +23,8 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
     # TODO: Move this to a thread & show progress
     def generate_skeleton( self ):
+        Cesgen_Utils.project_name = str( self.leProjectName.text( ) )
+
         # Create the overall directory
         project_path = os.path.join( str( self.leDirectory.text() ), str( self.leProjectName.text( ) ) )
         if not os.path.exists( project_path ):
@@ -39,13 +41,13 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
             if self.chkIncludeBgScripts.isChecked( ) or self.chkPermContentMenus.isChecked( ):
                 bg_script_path = os.path.join( scripts_path, "background.js" )
-                Cesgen_Utils.create_file( bg_script_path, Cesgen_Utils.generate_script_boiler( str( self.leProjectName.text( ) ),
+                Cesgen_Utils.create_file( bg_script_path, Cesgen_Utils.generate_script_boiler(
                     "background.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
                 )
                 
             if self.chkIncludeContentScripts.isChecked( ):
                 content_script_path = os.path.join( scripts_path, "injected.js" )
-                Cesgen_Utils.create_file( content_script_path, Cesgen_Utils.generate_script_boiler( str( self.leProjectName.text( ) ),
+                Cesgen_Utils.create_file( content_script_path, Cesgen_Utils.generate_script_boiler(
                     "injected.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
                 )
 
@@ -53,10 +55,10 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                 options_script_path = os.path.join( scripts_path, "settings.js" )
                 popup_options_script_path = os.path.join( scripts_path, "popup_settings.js" )
 
-                Cesgen_Utils.create_file( options_script_path, Cesgen_Utils.generate_script_boiler( str( self.leProjectName.text( ) ),
+                Cesgen_Utils.create_file( options_script_path, Cesgen_Utils.generate_script_boiler(
                     "settings.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
                     )
-                Cesgen_Utils.create_file( popup_options_script_path, Cesgen_Utils.generate_script_boiler( str( self.leProjectName.text( ) ),
+                Cesgen_Utils.create_file( popup_options_script_path, Cesgen_Utils.generate_script_boiler(
                     "popup_settings.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
                 )
 
@@ -90,7 +92,6 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         manifest_path = os.path.join( project_path, "manifest.json" )
         Cesgen_Utils.create_file( manifest_path, 
             Cesgen_Utils.generate_manifest_boiler( 
-                str( self.leProjectName.text( ) ),
                 self.chkPermNewTab.isChecked( ),
                 self.chkPermStorage.isChecked( ),
                 self.chkPermContentMenus.isChecked( ),
