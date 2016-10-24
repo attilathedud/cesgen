@@ -1,5 +1,6 @@
 import sys, os, shutil
 
+# TODO: make insance class, store values so we don't have to pass everything around
 class Cesgen_Utils:
 
     @staticmethod
@@ -67,7 +68,7 @@ class Cesgen_Utils:
         "newtab" : "main.html"\n\
     }'
 
-        if background_scripts == True:
+        if background_scripts == True or perm_context_menus == True:
             manifest_boiler = manifest_boiler + \
 ',\n\
     "background" : {\n\
@@ -127,7 +128,7 @@ class Cesgen_Utils:
         return html_boiler
 
     @staticmethod
-    def generate_script_boiler( file_name, perm_storage, perm_context_menus ):
+    def generate_script_boiler( project_name, file_name, perm_storage, perm_context_menus ):
         script_boiler = ''
 
         if perm_storage == True:
@@ -159,6 +160,7 @@ chrome.storage.local.get({\n\
             script_boiler = script_boiler + \
 'function contextMenu_onclick( info, tab ) {\n\
     var text_selected = info.selectionText;\n\
+    /* Uncomment to send a message out to content-scripts\n\
     var tab_id = 0;\n\
 \n\
     chrome.tabs.query({\n\
@@ -172,7 +174,14 @@ chrome.storage.local.get({\n\
             "text_selected" : text_selected\n\
         });\n\
     });\n\
-};\n'
+    */\n\
+};\n\
+\n\
+chrome.contextMenus.create({\n\
+    "title"     : "' + project_name + '",\n\
+    "contexts"  : [ "all" ],\n\
+    "onclick"   : contextMenu_onclick\n\
+});\n'
         if perm_context_menus == True and file_name == "injected.js":
             script_boiler = script_boiler + \
 'chrome.extension.onMessage.addListener( function ( message, sender, callback ) {\n\

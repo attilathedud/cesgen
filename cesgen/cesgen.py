@@ -37,15 +37,15 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
             if not os.path.exists( scripts_path ):
                 os.makedirs( scripts_path )
 
-            if self.chkIncludeBgScripts.isChecked( ):
+            if self.chkIncludeBgScripts.isChecked( ) or self.chkPermContentMenus.isChecked( ):
                 bg_script_path = os.path.join( scripts_path, "background.js" )
-                Cesgen_Utils.create_file( bg_script_path, Cesgen_Utils.generate_script_boiler( 
+                Cesgen_Utils.create_file( bg_script_path, Cesgen_Utils.generate_script_boiler( str( self.leProjectName.text( ) ),
                     "background.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
                 )
                 
             if self.chkIncludeContentScripts.isChecked( ):
                 content_script_path = os.path.join( scripts_path, "injected.js" )
-                Cesgen_Utils.create_file( content_script_path, Cesgen_Utils.generate_script_boiler( 
+                Cesgen_Utils.create_file( content_script_path, Cesgen_Utils.generate_script_boiler( str( self.leProjectName.text( ) ),
                     "injected.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
                 )
 
@@ -53,10 +53,10 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                 options_script_path = os.path.join( scripts_path, "settings.js" )
                 popup_options_script_path = os.path.join( scripts_path, "popup_settings.js" )
 
-                Cesgen_Utils.create_file( options_script_path, Cesgen_Utils.generate_script_boiler( 
+                Cesgen_Utils.create_file( options_script_path, Cesgen_Utils.generate_script_boiler( str( self.leProjectName.text( ) ),
                     "settings.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
                     )
-                Cesgen_Utils.create_file( popup_options_script_path, Cesgen_Utils.generate_script_boiler( 
+                Cesgen_Utils.create_file( popup_options_script_path, Cesgen_Utils.generate_script_boiler( str( self.leProjectName.text( ) ),
                     "popup_settings.js", self.chkPermStorage.isChecked( ), self.chkPermContentMenus.isChecked( ) ) 
                 )
 
