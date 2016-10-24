@@ -44,19 +44,21 @@ class Cesgen_Utils:
     "permissions" : [\n'
 
             if perm_storage == True:
-                manifest_boiler = manifest_boiler + \
-'        "storage"'
+                manifest_boiler = manifest_boiler + '        "storage"'
+
+                if perm_storage + perm_context_menus + perm_notifications > 1:
+                    manifest_boiler = manifest_boiler + ',\n'
 
             if perm_context_menus == True:
-                manifest_boiler = manifest_boiler + \
-',\n        "contextMenus"'
+                manifest_boiler = manifest_boiler + '        "contextMenus"'
+
+                if perm_storage + perm_context_menus + perm_notifications > 1:
+                    manifest_boiler = manifest_boiler + ',\n'
 
             if perm_notifications == True:
-                manifest_boiler = manifest_boiler + \
-',\n        "notifications"'
+                manifest_boiler = manifest_boiler + '        "notifications"'
 
-            manifest_boiler = manifest_boiler + \
-'\n    ]'
+            manifest_boiler = manifest_boiler + '\n    ]'
 
         if perm_new_tab == True:
             manifest_boiler = manifest_boiler + \
