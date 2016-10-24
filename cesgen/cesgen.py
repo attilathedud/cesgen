@@ -1,4 +1,5 @@
 from PyQt4 import QtGui
+from functools import partial
 import sys, os
 
 import design
@@ -10,14 +11,16 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         self.setupUi( self )
 
         # Set up button handlers
-        self.btnDirectoryChoose.clicked.connect( self.browse_directory )
+        self.btnDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leDirectory ) )
+        self.btnCssDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leIncludeCssDirectory ) )
+        self.btnImgDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leIncludeImgsDirectory ) )
         self.btnGenerate.clicked.connect( self.generate_skeleton )
 
-    def browse_directory( self ):
+    def browse_directory( self, associatedLe ):
         directory = QtGui.QFileDialog.getExistingDirectory( self, "Pick a directory" )
 
         if directory:
-            self.leDirectory.setText( directory )
+            associatedLe.setText( directory )
 
     # TODO: Move this to a thread & show progress
     def generate_skeleton( self ):
