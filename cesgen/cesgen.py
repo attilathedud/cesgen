@@ -116,4 +116,5 @@ if __name__ == '__main__':
     app = QtGui.QApplication( sys.argv )
     form = CesgenApp( )
     form.show( )
+    form.raise_( )
     app.exec_( )
