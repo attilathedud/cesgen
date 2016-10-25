@@ -22,6 +22,10 @@
   <property name="windowTitle">
    <string>Chrome Extension Skeleton Generator</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="design_resources.qrc">
+    <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">background: url(:/background/background.png)</string>
   </property>
