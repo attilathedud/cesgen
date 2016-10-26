@@ -17,29 +17,36 @@ The code is licensed under the Apache License, which means you are free to modif
 Creating a custom homepage is a classic "Hello World" type project when it comes to programming. Instead of loading your custom homepage off of file://, cesgen makes it easy to package your homepage as an Extension and distribute it.
 
 Simply select the "New Tab" permission like so:
+
 ![New Tab Main Screen](/promos/promo_2.png?raw=true "New Tab Main Screen")
 
 (If you already have a css file you are using, put it in the "Include CSS" section so it will be imported automatically.)
 
 The following folder structure will be created:
+
 ![New Tab Folder](/promos/promo_2a.png?raw=true "New Tab Folder")
 
 Your newtab page is located at pages/newtab.html. Modify it however you want.
 
 Now all you have to do is choose to load the extension:
+
 ![Load Unpacked Extension](/promos/promo_3.png?raw=true "Load Unpacked Extension")
 
 And just like that, your newtab is ready for use, no messing around with config files:
+
 ![Extension Loaded](/promos/promo_4.png?raw=true "Extension Loaded")
 
 ### Simple Custom Extension
 How about we create a simple extension that allows you to change the page title to whatever you select and right-click on. The end result:
+
 ![Custom Extension](/promos/promo_7.png?raw=true "Custom Extension")
 
 For this project we need background scripts (to listen for context-menu clicks), content-scripts (to modify the DOM of the page), and the context-menu permission:
+
 ![Custom Extension Options](/promos/promo_5.png?raw=true "Custom Extension Options")
 
 It generates the following structure:
+
 ![Custom Extension Folders](/promos/promo_6.png?raw=true "Custom Extension Folders")
 
 Open scripts/background.js and uncomment the code like it directs:
