@@ -66,7 +66,7 @@ class Cesgen_Utils:
             manifest_boiler = manifest_boiler + \
 ',\n\
     "chrome_url_overrides" : {\n\
-        "newtab" : "main.html"\n\
+        "newtab" : "pages/newtab.html"\n\
     }'
 
         if background_scripts == True or perm_context_menus == True:
