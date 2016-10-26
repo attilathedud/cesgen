@@ -87,3 +87,6 @@ chrome.extension.onMessage.addListener( function ( message, sender, callback ) {
 ```
 
 With one line of code we have easily accomplished our job!
+
+### Build & Development
+cesgen is build with Python 3 and Qt5, but will run with Python 2.7 and Qt4. To change the Qt interface, make sure you run ./build_res.sh after modifying the .ui file.
