@@ -80,7 +80,7 @@ class Cesgen_Utils:
             manifest_boiler = manifest_boiler + \
 ',\n\
     "content_scripts" : [ {\n\
-        "matches" : [ "<all_urls" ],\n\
+        "matches" : [ "<all_urls>" ],\n\
         "js" : [\n\
             "scripts/injected.js"\n\
         ]\n\
