@@ -49,6 +49,10 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
             if not os.path.exists( scripts_path ):
                 os.makedirs( scripts_path )
 
+            script_external_path = os.path.join( scripts_path, "external" )
+            if not os.path.exists( script_external_path ):
+                os.makedirs( script_external_path )
+
             if self.chkIncludeBgScripts.isChecked( ) or self.chkPermContextMenus.isChecked( ):
                 bg_script_path = os.path.join( scripts_path, "background.js" )
                 Cesgen_Utils.create_file( bg_script_path, Cesgen_Utils.generate_script_boiler(
