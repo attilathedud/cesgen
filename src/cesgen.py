@@ -97,6 +97,8 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         # Create the css section
         if self.chkIncludeCss.isChecked():
             Cesgen_Utils.create_and_copy_directory( project_path, "css", str( self.leIncludeCssDirectory.text() ) )
+            if self.chkIncludeContentScripts.isChecked( ):
+                Cesgen_Utils.create_file( os.path.join( os.path.join( project_path, "css" ), 'injected.css' ), '' )
 
         # Create the img section
         if self.chkIncludeImgs.isChecked():
@@ -112,7 +114,8 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                 self.chkPermNotifications.isChecked( ),
                 self.chkIncludeBgScripts.isChecked( ),
                 self.chkIncludeContentScripts.isChecked( ),
-                self.chkIncludeOptions.isChecked( )
+                self.chkIncludeOptions.isChecked( ),
+                self.chkIncludeCss.isChecked( )
             ) 
         )
 

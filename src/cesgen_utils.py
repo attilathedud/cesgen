@@ -31,7 +31,7 @@ class Cesgen_Utils:
     def generate_manifest_boiler( perm_new_tab, perm_storage, 
                                     perm_context_menus, perm_notifications, 
                                     background_scripts, content_scripts, 
-                                    option_pages ):
+                                    option_pages, include_css ):
         manifest_boiler = \
 '{\n\
     "manifest_version"  :     2,\n\
@@ -80,8 +80,14 @@ class Cesgen_Utils:
             manifest_boiler = manifest_boiler + \
 ',\n\
     "content_scripts" : [ {\n\
-        "matches" : [ "<all_urls>" ],\n\
-        "js" : [\n\
+        "matches" : [ "<all_urls>" ],\n'
+
+            if include_css == True:
+                manifest_boiler = manifest_boiler + \
+        '\t"css" : [ "css/injected.css" ],\n'
+
+            manifest_boiler = manifest_boiler + \
+        '\t"js" : [\n\
             "scripts/injected.js"\n\
         ]\n\
     } ]'
