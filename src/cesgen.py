@@ -121,12 +121,6 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                     icon_writer = png.Writer( width = icon_size, height = icon_size, alpha= 'RGBA' )
                     with open( os.path.join( icons_path, "icon" + str( icon_size ) + ".png" ), 'wb' ) as icon_file:
                         icon_writer.write( icon_file, rows )
-                '''
-                rows = [[255]* 4 * 256] * 256
-                png_writer = png.Writer(width=256, height=256, alpha='RGBA')
-                with open(os.path.join( icons_path, "icon" + "256" + ".png" ), 'wb') as img:
-                    png_writer.write(img, rows)
-                '''
 
         # Create the manifest file
         manifest_path = os.path.join( project_path, "manifest.json" )
