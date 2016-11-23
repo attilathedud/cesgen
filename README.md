@@ -13,6 +13,15 @@ Some of the features:
 
 The code is licensed under the Apache License, which means you are free to modify it however you desire.
 
+## 1.1.0 Changelog
+- Added "external" folder for any third-party javascript libraries.
+- Added support for generation of css-partnered content-script generation.
+- "use strict"; set as default mode for all created javascript files.
+- Added visual feedback when generation is finally complete.
+- Added support for icon generation and boiler code.
+- Fixed a bug where blank spaces caused some weird unicode-rendering errors.
+- Cleaned up the folder structure. 
+
 ### Custom Homepage
 Creating a custom homepage is a classic "Hello World" type project when it comes to programming. Instead of loading your custom homepage off of file://, cesgen makes it easy to package your homepage as an Extension and distribute it.
 
@@ -89,4 +98,4 @@ chrome.extension.onMessage.addListener( function ( message, sender, callback ) {
 With one line of code we have easily accomplished our job!
 
 ### Build & Development
-cesgen is build with Python 3 and Qt5, but will run with Python 2.7 and Qt4. To change the Qt interface, make sure you run ./build_res.sh after modifying the .ui file.
+cesgen is built with Python 2.7 and Qt4. To change the Qt interface, make sure you run ./build_res.sh after modifying the .ui file.
