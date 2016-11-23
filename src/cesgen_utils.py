@@ -136,7 +136,7 @@ class Cesgen_Utils:
 
     @staticmethod
     def generate_script_boiler( file_name, perm_storage, perm_context_menus ):
-        script_boiler = ''
+        script_boiler = '"use strict";\n\n'
 
         if perm_storage == True:
             script_boiler = script_boiler + \
