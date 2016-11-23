@@ -28,7 +28,7 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
             associatedLe.setText( directory )
 
     def ui_generate( self ):
-        if len( str( self.leProjectName.text( ) ) ) == 0 or len( str( self.leDirectory.text() ) ) == 0:
+        if len( str( self.leProjectName.text( ) ).strip( ) ) == 0 or len( str( self.leDirectory.text() ).strip( ) ) == 0:
             msgBox = QtGui.QMessageBox( )
             msgBox.setText("Please provide the project name and the project directory.")
             msgBox.exec_()
@@ -41,10 +41,10 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         self.lblCreation.hide( )
 
     def generate_skeleton( self ):
-        Cesgen_Utils.project_name = str( self.leProjectName.text( ) )
+        Cesgen_Utils.project_name = str( self.leProjectName.text( ) ).strip( )
 
         # Create the overall directory
-        project_path = os.path.join( str( self.leDirectory.text() ), str( self.leProjectName.text( ) ) )
+        project_path = os.path.join( str( self.leDirectory.text() ).strip( ), str( self.leProjectName.text( ) ).strip( ) )
         if not os.path.exists( project_path ):
             os.makedirs( project_path )
         
@@ -104,14 +104,14 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
 
         # Create the css section
         if self.chkIncludeCss.isChecked():
-            Cesgen_Utils.create_and_copy_directory( project_path, "css", str( self.leIncludeCssDirectory.text() ) )
+            Cesgen_Utils.create_and_copy_directory( project_path, "css", str( self.leIncludeCssDirectory.text() ).strip( ) )
             if self.chkIncludeContentScripts.isChecked( ):
                 Cesgen_Utils.create_file( os.path.join( os.path.join( project_path, "css" ), 'injected.css' ), '' )
 
         # Create the img section
         if self.chkIncludeImgs.isChecked() or self.chkIncludeIcons.isChecked( ):
-            Cesgen_Utils.create_and_copy_directory( project_path, "imgs", str( self.leIncludeImgsDirectory.text() ) )
-            Cesgen_Utils.create_and_copy_directory( project_path, "imgs", str( self.leIncludeIconsDirectory.text() ) )
+            Cesgen_Utils.create_and_copy_directory( project_path, "imgs", str( self.leIncludeImgsDirectory.text() ).strip( ) )
+            Cesgen_Utils.create_and_copy_directory( project_path, "imgs", str( self.leIncludeIconsDirectory.text() ).strip( ) )
 
             if len( str( self.leIncludeIconsDirectory.text( ) ) ) == 0:
                 icons_path = os.path.join( project_path, "imgs")
