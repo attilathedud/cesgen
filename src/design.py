@@ -26,12 +26,13 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.setWindowModality(QtCore.Qt.NonModal)
-        MainWindow.resize(466, 425)
+        MainWindow.resize(425, 454)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
+        MainWindow.setMaximumSize(QtCore.QSize(425, 454))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/icon/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -40,6 +41,13 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.lblCreation = QtGui.QLabel(self.centralwidget)
+        self.lblCreation.setFocusPolicy(QtCore.Qt.WheelFocus)
+        self.lblCreation.setStyleSheet(_fromUtf8("background: rgba(16, 255, 33, 127);\n"
+"padding: 10px;\n"
+"border-radius: 4px;"))
+        self.lblCreation.setObjectName(_fromUtf8("lblCreation"))
+        self.verticalLayout.addWidget(self.lblCreation)
         self.verticalLayout_2 = QtGui.QVBoxLayout()
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.label_2 = QtGui.QLabel(self.centralwidget)
@@ -88,6 +96,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addLayout(self.horizontalLayout)
         self.verticalLayout_3.setStretch(1, 1)
         self.verticalLayout.addLayout(self.verticalLayout_3)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setSizeConstraint(QtGui.QLayout.SetMinAndMaxSize)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
@@ -180,6 +190,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Chrome Extension Skeleton Generator", None))
+        self.lblCreation.setText(_translate("MainWindow", "Skeleton Generated.", None))
         self.label_2.setText(_translate("MainWindow", "Name", None))
         self.label.setText(_translate("MainWindow", "Directory", None))
         self.btnDirectoryChoose.setText(_translate("MainWindow", "...", None))

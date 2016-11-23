@@ -1,4 +1,4 @@
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 from functools import partial
 import sys, os, threading
 
@@ -16,6 +16,10 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         self.btnImgDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leIncludeImgsDirectory ) )
         self.btnGenerate.clicked.connect( self.ui_generate )
 
+        # Set up timer
+        self.creationTimer = QtCore.QTimer( )
+        self.lblCreation.hide( )
+
     def browse_directory( self, associatedLe ):
         directory = QtGui.QFileDialog.getExistingDirectory( self, "Pick a directory" )
 
@@ -28,9 +32,12 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
             msgBox.setText("Please provide the project name and the project directory.")
             msgBox.exec_()
         else:
-            t = threading.Thread( target = self.generate_skeleton )
-            t.setDaemon( True )
-            t.start( )
+            self.generate_skeleton( )
+            self.lblCreation.show( )
+            self.creationTimer.singleShot( 3000, self.hide_creation_label )
+
+    def hide_creation_label( self ):
+        self.lblCreation.hide( )
 
     def generate_skeleton( self ):
         Cesgen_Utils.project_name = str( self.leProjectName.text( ) )

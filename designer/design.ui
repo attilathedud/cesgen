@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>466</width>
-    <height>425</height>
+    <width>425</width>
+    <height>454</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,6 +18,12 @@
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>425</width>
+    <height>454</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Chrome Extension Skeleton Generator</string>
@@ -30,7 +36,22 @@
    <string notr="true">background: url(:/background/background.png)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0">
+    <item>
+     <widget class="QLabel" name="lblCreation">
+      <property name="focusPolicy">
+       <enum>Qt::WheelFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgba(16, 255, 33, 127);
+padding: 10px;
+border-radius: 4px;</string>
+      </property>
+      <property name="text">
+       <string>Skeleton Generated.</string>
+      </property>
+     </widget>
+    </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -119,6 +140,19 @@
        </layout>
       </item>
      </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0">
