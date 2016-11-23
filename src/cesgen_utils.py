@@ -31,7 +31,7 @@ class Cesgen_Utils:
     def generate_manifest_boiler( perm_new_tab, perm_storage, 
                                     perm_context_menus, perm_notifications, 
                                     background_scripts, content_scripts, 
-                                    option_pages, include_css ):
+                                    option_pages, include_css, include_icons ):
         manifest_boiler = \
 '{\n\
     "manifest_version"  :     2,\n\
@@ -61,6 +61,17 @@ class Cesgen_Utils:
                 manifest_boiler = manifest_boiler + '        "notifications"'
 
             manifest_boiler = manifest_boiler + '\n    ]'
+
+        if include_icons == True:
+            manifest_boiler = manifest_boiler + \
+',\n\
+    "icons" : {\n\
+        "16" : "imgs/icon16.png",\n\
+        "32" : "imgs/icon32.png",\n\
+        "48" : "imgs/icon48.png",\n\
+        "64" : "imgs/icon64.png",\n\
+        "128": "imgs/icon128.png"\n\
+    }'
 
         if perm_new_tab == True:
             manifest_boiler = manifest_boiler + \

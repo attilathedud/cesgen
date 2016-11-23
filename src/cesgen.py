@@ -1,6 +1,6 @@
 from PyQt4 import QtGui, QtCore
 from functools import partial
-import sys, os, threading
+import sys, os, png
 
 import design
 from cesgen_utils import Cesgen_Utils
@@ -14,6 +14,7 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
         self.btnDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leDirectory ) )
         self.btnCssDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leIncludeCssDirectory ) )
         self.btnImgDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leIncludeImgsDirectory ) )
+        self.btnIconDirectoryChoose.clicked.connect( partial( self.browse_directory, associatedLe = self.leIncludeIconsDirectory ) )
         self.btnGenerate.clicked.connect( self.ui_generate )
 
         # Set up timer
@@ -108,9 +109,25 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                 Cesgen_Utils.create_file( os.path.join( os.path.join( project_path, "css" ), 'injected.css' ), '' )
 
         # Create the img section
-        if self.chkIncludeImgs.isChecked():
+        if self.chkIncludeImgs.isChecked() or self.chkIncludeIcons.isChecked( ):
             Cesgen_Utils.create_and_copy_directory( project_path, "imgs", str( self.leIncludeImgsDirectory.text() ) )
-        
+            Cesgen_Utils.create_and_copy_directory( project_path, "imgs", str( self.leIncludeIconsDirectory.text() ) )
+
+            if len( str( self.leIncludeIconsDirectory.text( ) ) ) == 0:
+                icons_path = os.path.join( project_path, "imgs")
+
+                for icon_size in [ 16, 32, 48, 64, 128 ]:
+                    rows = [ [ icon_size - 1 ] * 4 * icon_size ] * icon_size
+                    icon_writer = png.Writer( width = icon_size, height = icon_size, alpha= 'RGBA' )
+                    with open( os.path.join( icons_path, "icon" + str( icon_size ) + ".png" ), 'wb' ) as icon_file:
+                        icon_writer.write( icon_file, rows )
+                '''
+                rows = [[255]* 4 * 256] * 256
+                png_writer = png.Writer(width=256, height=256, alpha='RGBA')
+                with open(os.path.join( icons_path, "icon" + "256" + ".png" ), 'wb') as img:
+                    png_writer.write(img, rows)
+                '''
+
         # Create the manifest file
         manifest_path = os.path.join( project_path, "manifest.json" )
         Cesgen_Utils.create_file( manifest_path, 
@@ -122,7 +139,8 @@ class CesgenApp( QtGui.QMainWindow, design.Ui_MainWindow ):
                 self.chkIncludeBgScripts.isChecked( ),
                 self.chkIncludeContentScripts.isChecked( ),
                 self.chkIncludeOptions.isChecked( ),
-                self.chkIncludeCss.isChecked( )
+                self.chkIncludeCss.isChecked( ),
+                self.chkIncludeIcons.isChecked( )
             ) 
         )
 
