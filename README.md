@@ -13,6 +13,10 @@ Some of the features:
 
 The code is licensed under the Apache License, which means you are free to modify it however you desire.
 
+## 1.1.1 Changelog
+- Fixed a bug where iterating through options wouldn't work on newer versions of Chrome.
+- Streamlined the option retrieval boilerplate.
+
 ## 1.1.0 Changelog
 - Added "external" folder for any third-party javascript libraries.
 - Added support for generation of css-partnered content-script generation.
