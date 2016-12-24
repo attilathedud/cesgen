@@ -158,7 +158,7 @@ var options = {\n\
 };\n\
 \n\
 chrome.storage.onChanged.addListener( function( changes, namespace ) {\n\
-    for ( key in changes ) {\n\
+    for ( var key in changes ) {\n\
         var storageChange = changes[ key ];\n\
 \n\
         options[ key ] = storageChange.newValue;\n\
@@ -166,10 +166,9 @@ chrome.storage.onChanged.addListener( function( changes, namespace ) {\n\
 });\n\
 \n\
 chrome.storage.local.get({\n\
-    Option_1 : "Value_1",\n\
-    Option_2 : "Value_2"\n\
+    options\n\
 }, function( items ) {\n\
-    for( key in items ) {\n\
+    for( var key in items ) {\n\
         options[ key ] = items[ key ];\n\
     }\n\
 });\n\n'
