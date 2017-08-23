@@ -95,10 +95,10 @@ class Cesgen_Utils:
 
             if include_css == True:
                 manifest_boiler = manifest_boiler + \
-        '\t"css" : [ "css/injected.css" ],\n'
+        '\t\t"css" : [ "css/injected.css" ],\n'
 
             manifest_boiler = manifest_boiler + \
-        '\t"js" : [\n\
+        '\t\t"js" : [\n\
             "scripts/injected.js"\n\
         ]\n\
     } ]'
