@@ -136,7 +136,7 @@ class Cesgen_Utils:
 	<script src="'
     
         if is_option_page == True:
-            html_boiler = html_boiler + option_page_name + '.js'
+            html_boiler = html_boiler + '../scripts/' + option_page_name + '.js'
 
         html_boiler = html_boiler + \
 '"></script>\n\
